@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <header style="padding:20px; text-align:center; ">
+        <h1 style="">Datos Usuario</h1>
+    </header>
+
+<!--    <div class="contPrin"  style="display:flex; flex-direction: column; text-align:center; gap:14px; align-items: center;-->
+<!-- ">-->
+<!--        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">-->
+<!--            <p>Nombre Usuario: </p>-->
+<!--            <p th:text="${usuario.getNombreUsuario}"></p>-->
+<!--        </div>-->
+
+<!--        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">-->
+<!--            <p>Nombre: </p>-->
+<!--            <p th:text="${usuario.getNombre}"></p>-->
+<!--        </div>-->
+
+<!--        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">-->
+<!--            <p>Apellidos: </p>-->
+<!--            <p th:text="${usuario.getApellidos}"></p>-->
+<!--        </div>-->
+
+<!--        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">-->
+<!--            <p>Email: </p>-->
+<!--            <p th:text="${usuario.getEmail}"></p>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="contPrin"  style="display:flex; flex-direction: column; text-align:center; gap:14px; align-items: center;-->
+<!-- ">-->
+        <h2>Datos Sesion</h2>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Nombre Usuario: </p>
+            <p th:text="${session.usuario.getNombreUsuario}"></p>
+        </div>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Nombre: </p>
+            <p th:text="${session.usuario.getNombre}"></p>
+        </div>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Apellidos: </p>
+            <p th:text="${session.usuario.getApellidos}"></p>
+        </div>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Email: </p>
+            <p th:text="${session.usuario.getEmail}"></p>
+        </div>
+    </div>
+
+
+</body>
+</html>

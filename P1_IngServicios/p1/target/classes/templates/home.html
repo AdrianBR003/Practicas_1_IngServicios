@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+</head>
+<body>
+
+    <header style="padding:20px; text-align:center; ">
+        <h1 style="">Formulario HTML - Home</h1>
+    </header>
+
+    <div class="contForm" style="padding: 20px;" >
+        <form action="/datosUsuario" method="post" style="display:flex; flex-direction: column; text-align:center; gap:14px;">
+            <div class="contLab">
+                <label for="POST-nameUser">Nombre Usuario:</label>
+                <input id="POST-nameUser" type="text" name="nameUser" required/>
+            </div>
+            <div class="contLab">
+                <label for="POST-name">Apellidos:</label>
+                <input id="POST-name" type="text" name="name" required/>
+            </div>
+            <div class="contLab">
+                <label for="POST-apell">Apellidos:</label>
+                <input id="POST-apell" type="text" name="apell" required/>
+            </div>
+            <div class="contLab">
+                <label for="POST-email">Email:</label>
+                <input id="POST-email" type="email" name="email" required/>
+            </div>
+            <div class="contLab">
+                <input type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
