@@ -41,6 +41,11 @@
         <h2>Datos Sesion</h2>
 
         <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Cookie Permanente: </p>
+            <p th:text="${session.usuario.getCookiePerm}"></p>
+        </div>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
             <p>Nombre Usuario: </p>
             <p th:text="${session.usuario.getNombreUsuario}"></p>
         </div>
