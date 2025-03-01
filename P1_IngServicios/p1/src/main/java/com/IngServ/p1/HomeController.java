@@ -14,22 +14,32 @@ public class HomeController {
 
     @GetMapping(value = "/home")
     public String getHome() {
-
         return "home";
     }
 
     @GetMapping(value = "/datosUsuario")
-    public String getDatosUsuario(HttpServletRequest req) {
+    public String getDatosUsuario(HttpServletRequest req, Model mod) {
         HttpSession session = req.getSession();
         Usuario user = (Usuario) session.getAttribute("usuario");
-        if (user == null) {
-            return "erorr";
-        }
-        session.setAttribute("usuario", user);
 
+        if (user == null) {
+            return "error";
+        }
+
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("cookiePerm".equals(cookie.getName())) {
+                    System.out.println("Cookie recuperada: " + cookie.getName() + " = " + cookie.getValue());
+                    user.setCookiePerm(cookie.getValue());
+                    break;
+                }
+            }
+        }
+
+        mod.addAttribute("usuario", user);
         return "datosUsuario";
     }
-
 
     @PostMapping(value = "/datosUsuario")
     public String postDatosUsuario(HttpServletRequest req, HttpServletResponse res, Model mod) {
@@ -37,24 +47,19 @@ public class HomeController {
         String nombre = req.getParameter("name");
         String apellidos = req.getParameter("apell");
         String email = req.getParameter("email");
-//        mod.addAttribute("nameUser",nombreUsuario);
-//        mod.addAttribute("nombre", nombre);
-//        mod.addAttribute("apellidos",apellidos);
-//        mod.addAttribute("email",email);
-
-
-        Cookie c = new Cookie("cookiePerm", nombreUsuario);
+        Cookie c = new Cookie("cookiePerm" + nombre, nombreUsuario + "&" + apellidos); // Simulación para comprobar como se crean cookies permanentes IND
         c.setMaxAge(3600);
         c.setPath("/datosUsuario");
         res.addCookie(c);
 
         HttpSession session = req.getSession();
-        session.setMaxInactiveInterval(20);
+        session.setMaxInactiveInterval(20); // TEST para comprobar si se cierra la sesion en 20 s
         Usuario user = new Usuario(c.getValue(), nombreUsuario, nombre, apellidos, email);
-        System.out.println("Cookie permanente: " + c.getName() + " : " + c.getValue() + " del usuario: " + user.getNombreUsuario());
+
+        System.out.println("Cookie permanente guardada: " + c.getName() + " : " + c.getValue());
+
         mod.addAttribute("usuario", user);
         session.setAttribute("usuario", user);
         return "datosUsuario";
     }
-
 }

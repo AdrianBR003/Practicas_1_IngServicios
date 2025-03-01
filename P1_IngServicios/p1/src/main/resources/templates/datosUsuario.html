@@ -42,30 +42,28 @@
 
         <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
             <p>Cookie Permanente: </p>
-            <p th:text="${session.usuario.getCookiePerm}"></p>
+            <p th:text="${usuario.getCookiePerm}"></p>
         </div>
 
         <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
             <p>Nombre Usuario: </p>
-            <p th:text="${session.usuario.getNombreUsuario}"></p>
+            <p th:text="${usuario.getNombreUsuario}"></p>
         </div>
 
         <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
             <p>Nombre: </p>
-            <p th:text="${session.usuario.getNombre}"></p>
+            <p th:text="${usuario.getNombre}"></p>
         </div>
 
         <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
             <p>Apellidos: </p>
-            <p th:text="${session.usuario.getApellidos}"></p>
+            <p th:text="${usuario.getApellidos}"></p>
         </div>
 
         <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
             <p>Email: </p>
-            <p th:text="${session.usuario.getEmail}"></p>
+            <p th:text="${usuario.getEmail}"></p>
         </div>
-    </div>
-
 
 </body>
 </html>
