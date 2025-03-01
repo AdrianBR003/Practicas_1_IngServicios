@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.Serializable;
 
 public class Usuario implements Serializable {
-    private String cookiePerm;
     private String nombreUsuario;
     private String nombre;
     private String apellidos;
@@ -13,30 +12,27 @@ public class Usuario implements Serializable {
 
 
     public Usuario() {
-        this.cookiePerm = "";
         this.nombreUsuario = "";
         this.nombre = "";
         this.apellidos = "";
         this.email = "";
     }
 
-    public Usuario(String cookiePerm, String nombreUsuario, String nombre, String apellidos, String email) {
-        this.cookiePerm = cookiePerm;
+    public Usuario(String nombreUsuario, String nombre, String apellidos, String email) {
         this.nombreUsuario = nombreUsuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
     }
 
-
-
-
-    public String getCookiePerm() {
-        return cookiePerm;
-    }
-
-    public void setCookiePerm(String sessionID) {
-        this.cookiePerm = sessionID;
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombreUsuario='" + nombreUsuario + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 
     public String getNombreUsuario() {
@@ -70,4 +66,7 @@ public class Usuario implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+
 }
