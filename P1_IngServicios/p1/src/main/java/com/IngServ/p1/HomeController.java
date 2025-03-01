@@ -19,13 +19,15 @@ public class HomeController {
 
     @GetMapping(value = "/datosUsuario")
     public String getDatosUsuario(HttpServletRequest req, Model mod) {
-        HttpSession session = req.getSession();
-        Usuario user = (Usuario) session.getAttribute("usuario");
-
-        if (user == null) {
+        HttpSession session = req.getSession(false); // Si no existe la sesion, no tiene que crear una nueva en este path
+        if(session == null){
             return "error";
         }
-
+        Usuario user = (Usuario) session.getAttribute("usuario");
+        if (user == null ) {
+            System.out.println("Usuario = null");
+            return "error";
+        }
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
