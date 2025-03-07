@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <header style="padding:20px; text-align:center; ">
+        <h1 style="">Datos Usuario</h1>
+    </header>
+        <h2>Datos Sesion</h2>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Cookie Permanente: </p>
+            <p th:text="${cookiePerm}"></p>
+        </div>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Nombre Usuario: </p>
+            <p th:text="${user.getNameUser}"></p>
+        </div>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Nombre: </p>
+            <p th:text="${user.getName}"></p>
+        </div>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Apellidos: </p>
+            <p th:text="${user.getLastname}"></p>
+        </div>
+
+        <div class="contP" style="display:flex; flex-direction: row; gap:10px;">
+            <p>Email: </p>
+            <p th:text="${user.getEmail}"></p>
+        </div>
+
+</body>
+</html>

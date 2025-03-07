@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Arrays;
 
+/*
+    DEVELOPER'S NOTE:
+
+        1. The comments for this session are intended to record the creation process, therefore, the code has not been properly cleaned up and sorted.
+           In the following longer sessions, the best practices will be followed.
+ */
+
 @Controller
 public class HomeController {
 
@@ -19,93 +26,91 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping(value = "/datosUsuario")
-    public String getDatosUsuario(HttpServletRequest req, Model mod) {
-        HttpSession session = req.getSession(false); // Si no existe la sesion, no tiene que crear una nueva en este path
+    @GetMapping(value = "/userData")
+    public String getUserData(HttpServletRequest req, Model mod) {
+        HttpSession session = req.getSession(false); // If the session does not exist, you do not have to create a new one in this path.
         if(session == null){
             return "error";
         }
 
-        // VAMOS A RECOGER LOS DATOS DEL USUARIO DESDE LA COOKIE CREADA `Cdatos`
+        // LET'S COLLECT USER DATA FROM THE CREATED COOKIE `Cdata`.
 
         Cookie[] cookies = req.getCookies();
-        Usuario user = (Usuario) session.getAttribute("usuario");
+        User user = (User) session.getAttribute("user");
 
         if (cookies != null) {
-            System.out.println(Arrays.stream(cookies).toString());
-            for (Cookie cookie : cookies) { // En este caso no hace falta, pero si hubiera más sí
+            System.out.println(Arrays.stream(cookies));
+            for (Cookie cookie : cookies) { // In this case it is not necessary, but if there were more, yes.
                 if ("cookiePerm".equals(cookie.getName())) {
-                    System.out.println("Cookie recuperada: " + cookie.getName() + " = " + cookie.getValue());
+                    System.out.println("Cookie: " + cookie.getName() + " = " + cookie.getValue());
                     mod.addAttribute("cookiePerm", cookie.getValue());
                 }
 
-                 // Explicación de porque no se puede aplicar esto más abajo
 //                if("Cdatos".equals(cookie.getName())){
 //                    System.out.println("Cookie recuperada: " + cookie.getName() + " = " + cookie.getValue());
-//                    user = new Usuario(cookie.getAttribute("nombreUsuario"), cookie.getAttribute("nombre"), cookie.getAttribute("apellidos"), cookie.getAttribute("email"));
+//                    user = new User(cookie.getAttribute("nameUser"), cookie.getAttribute("name"), cookie.getAttribute("lastname"), cookie.getAttribute("email"));
 //                    System.out.println(user);
 //                }
             }
         }
-
-        // Creamos un usuario nulo, porque desde un GET, no vamos a tener la información de este guardada si no la pasa por un POST
         mod.addAttribute("usuario", user);
         mod.addAttribute("sessionID", session.getId());
-        return "datosUsuario";
+        return "userData";
     }
 
-    @PostMapping(value = "/datosUsuario")
-    public String postDatosUsuario(HttpServletRequest req, HttpServletResponse res, Model mod) {
-        String nombreUsuario = req.getParameter("nameUser");
-        String nombre = req.getParameter("name");
-        String apellidos = req.getParameter("apell");
+    @PostMapping(value = "/userData")
+    public String postUserData(HttpServletRequest req, HttpServletResponse res, Model mod) {
+        String nameUser = req.getParameter("nameUser");
+        String name = req.getParameter("name");
+        String lastname = req.getParameter("lastname");
         String email = req.getParameter("email");
 
-        // COOKIE PERMANENTE
+        // PERMANENT COOKIE
 
-        Cookie c = new Cookie("cookiePerm", nombreUsuario + "&" + apellidos); // Simulación para comprobar como se crean cookies permanentes IND
+        Cookie c = new Cookie("cookiePerm", nameUser + "&" + lastname);
         c.setMaxAge(3600);
-        c.setPath("/datosUsuario");
+        c.setPath("/userData");
         res.addCookie(c);
 
-        // COOKIE DE SESION (SESSION)
+        // SESSION COOKIE
 
         HttpSession session = req.getSession(); //
         session.setMaxInactiveInterval(20); // TEST para comprobar si se cierra la sesion en 20 s por inactividad
-        Usuario user = new Usuario(nombreUsuario, nombre, apellidos, email);
+        User user = new User(nameUser, name, lastname, email);
 
         System.out.println("Cookie permanente guardada: " + c.getName() + " : " + c.getValue());
 
-        // VAMOS A GUARDAR LOS DATOS DEL USUARIO EN UNA COOKIE PERMANENTE LLAMADA DATOS
+        // WE WILL STORE THE USER'S DATA IN A PERMANENT COOKIE CALLED DATA
 
-        /**
-         * NO SE PUEDE HACER ESTO
+        /*
+         * YOU CAN'T DO THIS
          *
-         * Los métodos setAttribute y getAttribute, solo aplican a los definidos dentro de la Clase Cookie, por lo que
-         * no podemos establecer unos valores propios.
+         * The setAttribute and getAttribute methods only apply to those defined within the Cookie Class, so we can't set our own values.
+         * we cannot set our own values.
          *
-         * La única forma de hacerlo sería insertar todo el contenido en una cadena, y ponerle ese valor a la Cookie
+         * The only way to do it would be to insert all the content in a string, and set that value to the Cookie.
          *
-         * Sin embargo, en un objeto HTTPSession sí que se puede
+         * However, in a HTTPSession object you can
          */
 
-//        Cookie c2 = new Cookie("Cdatos", nombreUsuario);
-//        c2.setAttribute("nombreUsuario", user.getNombreUsuario());
-//        c2.setAttribute("nombre", user.getNombre());
-//        c2.setAttribute("apellidos", user.getApellidos());
+
+//        Cookie c2 = new Cookie("Cdatos", nameUser);
+//        c2.setAttribute("nameUser", user.getNameUser());
+//        c2.setAttribute("name", user.getName());
+//        c2.setAttribute("lastname", user.getLastName());
 //        c2.setAttribute("email", user.getEmail());
 //        c2.setMaxAge(3600);
-//        c2.setPath("/datosUsuario");
+//        c2.setPath("/userData");
 //        res.addCookie(c2);
 
-        // VAMOS A GUARDAR LOS DATOS DEL USUARIO EN LA SESION
+        // LET'S SAVE THE USER'S DATA IN THE SESSION
         session.setAttribute("usuario", user);
 
         // ENVIAMOS LOS DATOS
 
         mod.addAttribute("cookiePerm", c.getValue());
-        mod.addAttribute("usuario", user);
+        mod.addAttribute("user", user);
         mod.addAttribute("session", session.getId());
-        return "datosUsuario";
+        return "userData";
     }
 }
